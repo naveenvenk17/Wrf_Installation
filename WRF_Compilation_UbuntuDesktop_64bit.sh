@@ -18,8 +18,14 @@ echo "All the tar files are availabe at http://www2.mmm.ucar.edu/wrf/OnLineTutor
 echo ""
 echo ""
 
-echo " Enter User Directory Name: \c"
-read Unam
+#echo " Enter User Directory Name: \c"
+#read Unam
+
+####################
+echo "no error till here"
+set Unam=naveen-venkat
+echo $Unam
+#####################
 
 echo ""
 echo ""
@@ -30,8 +36,13 @@ which gcc
 which cpp
 which gfortran
 
+############
+echo Unam
+$DIR=/home/naveen-venkat/Build_WRF/TESTS
+echo $DIR
+##########
 
-cd /home/$Unam/Build_WRF/TESTS
+cd /home/naveen-venkat/Build_WRF/TESTS
 echo ""
 echo ""
 echo ""
@@ -90,27 +101,33 @@ echo ""
 echo ""
 echo ""
 echo -e "Do you see Success in each TEST ? [y/n]: \c"
-read Ans
-if [ $Ans = "Y" -o $Ans = "y" ]
+#read Ans
 
-then
+########################################
+#set Ans = "y"
+#echo $Ans
+#
+#if [ $Ans = "Y" -o $Ans = "y" ]
+#
+#then
+#
+#    echo "Let us continue !!"
+#
+#else
+#
+#    echo "There is a problem with the compilers and/or shells. Please install required #softwares and try again !!"
+#    exit 0
+#    
+#fi
+##########################################
 
-    echo "Let us continue !!"
-
-else
-
-    echo "There is a problem with the compilers and/or shells. Please install required softwares and try again !!"
-    exit 0
-    
-fi
-
-cd /home/$Unam/Build_WRF/LIBRARIES
+cd /home/naveen-venkat/Build_WRF/LIBRARIES
 echo ""
 echo ""
 banner "Building Libraries"
 echo ""
 echo ""
-setenv DIR /home/$Unam/Build_WRF/LIBRARIES
+setenv DIR /home/naveen-venkat/Build_WRF/LIBRARIES
 setenv CC gcc
 setenv CXX g++
 setenv FC gfortran
@@ -201,9 +218,10 @@ make
 make install
 cd ..
 
-cd /home/$Unam/Build_WRF/TESTS
+cd /home/naveen-venkat/Build_WRF/TESTS
 echo ""
 echo ""
+
 banner "Library Compatibility Tests"
 echo ""
 echo ""
@@ -213,10 +231,10 @@ echo ""
 banner "TEST 1: Fortran + C + NetCDF"
 echo ""
 echo ""
-cp /home/$Unam/Build_WRF/LIBRARIES/netcdf/include/netcdf.inc /home/$Unam/Build_WRF/TESTS
+cp /home/naveen-venkat/Build_WRF/LIBRARIES/netcdf/include/netcdf.inc /home/naveen-venkat/Build_WRF/TESTS
 gfortran -c 01_fortran+c+netcdf_f.f
 gcc -c 01_fortran+c+netcdf_c.c 
-gfortran 01_fortran+c+netcdf_f.o 01_fortran+c+netcdf_c.o -L /home/$Unam/Build_WRF/LIBRARIES/netcdf/lib -lnetcdff -lnetcdf
+gfortran 01_fortran+c+netcdf_f.o 01_fortran+c+netcdf_c.o -L /home/naveen-venkat/Build_WRF/LIBRARIES/netcdf/lib -lnetcdff -lnetcdf
 ./a.out
 echo ""
 echo ""
@@ -224,14 +242,19 @@ banner "TEST 2: Fortran + C + NetCDF + MPI"
 echo ""
 echo ""
 
-cp /home/$Unam/Build_WRF/LIBRARIES/netcdf/include/netcdf.inc /home/$Unam/Build_WRF/TESTS
+#exit sudo 
+cp /home/naveen-venkat/Build_WRF/LIBRARIES/netcdf/include/netcdf.inc /home/naveen-venkat/Build_WRF/TESTS
+echo ""
+echo ""
+echo ""
+banner "Manually copy paste if you get error here"
 mpif90 -c 02_fortran+c+netcdf+mpi_f.f
 mpicc -c 02_fortran+c+netcdf+mpi_c.c
 mpif90 02_fortran+c+netcdf+mpi_f.o \
 02_fortran+c+netcdf+mpi_c.o \
-     -L/home/sachin/Build_WRF/LIBRARIES/netcdf/lib -lnetcdff -lnetcdf
+     -L/home/naveen-venkat/Build_WRF/LIBRARIES/netcdf/lib -lnetcdff -lnetcdf
 
-mpif90 02_fortran+c+netcdf+mpi_f.o \ 02_fortran+c+netcdf+mpi_c.o -L /home/$Unam/Build_WRF/LIBRARIES/netcdf/lib -lnetcdff -lnetcdf
+
 mpirun ./a.out
 
 echo -e "Do you see Success in each TEST ? [y/n]: \c"
@@ -249,7 +272,7 @@ else
     
 fi
 
-cd /home/$Unam/Build_WRF
+cd /home/naveen-venkat/Build_WRF
 echo ""
 echo ""
 banner "Building WRFV3"
@@ -272,7 +295,7 @@ else
     
 fi    
 gunzip WRFV3.7.TAR.gz
-tar -xf WRFV3.7.TAR
+	tar -xf WRFV3.7.TAR
 cd WRFV3
 ./clean -a
 ./configure
@@ -328,7 +351,7 @@ else
     
 fi
 
-cd /home/$Unam/Build_WRF
+cd /home/naveen-venkat/Build_WRF
 echo ""
 echo ""
 banner "Building WPS"
